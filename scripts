@@ -1,0 +1,230 @@
+
+SCRIPTS AND COMMANDS
+
+
+* SCRIPTS - GENERAL
+
+To check that scriptname is fres, start by doing: which scriptname
+
+Then do:
+
+sudo touch /bin/sciptname
+sudo nano /bin/scriptname
+
+First line of every script is (but change if shell is not bash):
+#!/bin/bash
+
+Then put in all the commands. Comment out lines with an initial #
+
+When all saved, make executable with:
+sudo chmod +x /bin/scriptname
+
+
+
+
+
+* GIT
+
+** GIT - GITSTART
+
+#!/bin/bash
+cd ~/repo
+git pull git@gitlab.com:fullname/repo.git
+
+
+** GIT - QUICK
+
+#!/bin/bash
+# DO NOT ADD DROPBACK - NEED TO KEEP SEPARATE AND NOT FOR USE ON PORTABLE COMPUTERS
+cd ~/repo
+git add -A
+git commit -m "quick repo home"
+git push git@gitlab.com:fullname/repo.git
+
+[substitute an identifier for the computer for home if not the main home one, eg blue or purple]
+
+
+
+
+
+** GENERAL FILE MANAGEMENT - DROPBACK
+
+DO NOT PUT THE DROPBACK VERSION ON PORTABLE COMPUTERS - USE DROPBLUE, DROPPURPLE
+
+#!/bin/bash
+if mountpoint -q ~/"pCloudDrive"
+then
+rsync -av --delete --exclude=".*" ~/repo ~/"pCloudDrive"/safetyholding
+rsync -av --delete ~/Downloads ~/"pCloudDrive"
+else
+echo "pCloud is not mounted"
+fi
+
+DROPBLUE
+
+#!/bin/bash
+if mountpoint -q ~/"pCloudDrive"
+then
+rsync -av --delete --exclude=".*" ~/repo ~/"pCloudDrive"/safetyblue
+rsync -av --delete ~/Downloads ~/"pCloudDrive"/downblue
+else
+echo "pCloud is not mounted"
+fi
+
+DROPPURPLE
+
+#!/bin/bash
+if mountpoint -q ~/"pCloudDrive"
+then
+rsync -av --delete --exclude=".*" ~/repo ~/"pCloudDrive"/safetypurple
+rsync -av --delete ~/Downloads ~/"pCloudDrive"/downpurple
+else
+echo "pCloud is not mounted"
+fi
+
+
+** GENERAL FILE MANAGEMENT - RSYNC TO EXTERNAL DRIVE - call it seagate
+
+Note the quotation marks and the fact that you do not reproduce 01cmount1 on the destination (so make sure it is set up first) and you do not draw 01cmount1 from pCloud because it is a mount point on the computer. Create this as a script called seagate (check that name is free first by typing which seagate). Call it this, not some generic name like harddisk, because if change the hard disk will need to change the script. Also note the if mountpoint lines - needed to stop wiping stuff on the destination by accidentally running the script when source drives not mounted.
+
+Note that whether you have slashes before or after paths is crucial.
+
+Note that don't delete off the library files and ignore existing so as to guard against loss through corruption.
+
+
+** RSYNC TO EXTERNAL DRIVE - call it seagate
+
+Note the quotation marks and the fact that you do not reproduce 01cmount1 on the destination (so make sure it is set up first) and you do not draw 01cmount1 from pCloud because it is a mount point on the computer. Create this as a script called seagate (check that name is free first by typing which seagate). Call it this, not some generic name like harddisk, because if change the hard disk will need to change the script. Also note the if mountpoint lines - needed to stop wiping stuff on the destination by accidentally running the script when source drives not mounted.
+
+Note that whether you have slashes before or after paths is crucial.
+
+Note that don't delete off the library files and ignore existing so as to guard against loss through corruption.
+
+#!/bin/bash
+rsync -av --delete --exclude=".*" ~/repo /media/richard/"Seagate Expansion Drive"
+rsync -av --delete ~/Downloads /media/richard/"Seagate Expansion Drive"
+if mountpoint -q ~/"pCloudDrive"
+then
+rsync -av --ignore-existing --exclude="zztakeout" ~/"pCloudDrive"/01alib /media/richard/"Seagate Expansion Drive"
+rsync -av --delete ~/"pCloudDrive"/admin /media/richard/"Seagate Expansion Drive"
+else
+echo "pCloudDrive not mounted"
+fi
+
+
+
+* ENCFS FOR ENCRYPTED FOLDER
+
+** ENCFS - SETTING UP FOLDERS
+
+Install encfs (should be in software manager) AND istall gnome-encfs (may be able to install just the manager and get encfs installed with it): may need to use this line for the latter (and when tried on 01 November 2016 the manager was unavailable in the repository until I remembered to include the update bit):
+sudo add-apt-repository ppa:gencfsm && sudo apt-get update && sudo apt-get -y install gnome-encfs-manager
+
+Then make sure have the mount point and the cloud (or external hard drive) encrypted folder both exist.
+
+Then:
+
+encfs /home/richard/cloudorexternaldrivename/encryptedfoldername /home/richard/mountfoldername
+
+cloudorexternaldrivename should be "pCloudDrive"
+
+[Don't use the tilde abbreviation to cover home/richard and do put in the leading /, because encfs in some modes requires all this, and note that home and richard both start lower-case, even if upper case in file manager's presentation - if any problems, can check this by attempting a cd command]
+
+Choose paranoia mode and set the password
+
+To change the password:
+encfsctl passwd /home/richard/cloudorexternaldrivename/cloudfoldername
+
+** ENCFS - MOUNT - call it m1
+
+#!/bin/bash
+encfs ~/pCloudDrive/01cbase1 ~/01cmount1
+
+
+** ENCFS - DISMOUNT - call it dismount
+
+#!/bin/bash
+fusermount -u ~/01cmount1
+
+
+
+
+* DISABLE MOUSE SO SCREENSAVER DOES NOT CUT OUT
+
+Check device number (here shown as 12) with xinput list (it is 9 on the notebook bought in 2016, at least when in the rear USB on the right hand side)
+
+sudo touch /bin/doze
+sudo nano /bin/doze
+
+#!/bin/bash
+xinput set-prop 12 "Device Enabled" 0
+
+sudo chmod +x /bin/doze
+
+Get out of the screensaver with any key, then use this to wake up the mouse:
+
+sudo touch /bin/wake
+sudo nano /bin/wake
+
+#!/bin/bash
+xinput set-prop 12 "Device Enabled" 1
+
+Make executable with sudo chmod +x /bin/wake
+
+
+* DISABLE OR ENABLE THE TOUCHPAD
+
+If want to deactivate or re-activate the touchpad, use the menu to go to Preferences-mouse, touchpad tab, uncheck or check there.
+
+
+
+* REDSHIFT - call it redbear
+
+Redshift will be installed by default in Linux Mint 18.3. (not sure whether this depends on the desktop in use) There is also an alternative pre-installed in Ubuntu called Night Light.
+Adjust color temperature for GNOME Night Light on Ubuntu (and other Linux desktops).
+Open dconf-editor (install it if you don’t have it)
+Navigate to org/gnome/settings-daemon/plugins/color/night-light-temperature.
+Enter a custom value (eg 3000)
+
+Install redshift then in a terminal redshift -o -l 0:0 -m randr -t 3000:3000 (can play with the numbers, lower is more redshift; the second claracter is a lower-case letter L, not a numeral 1).
+Can put this command line on its own into the startup applications in xfce, but that doesn't seem to work in cinnamon. So have tried putting %U at the end. If that does not work maybe try putting it just after the word redshift.
+
+
+#!/bin/bash
+redshift -o -l 0:0 -m randr -t 3000:3000
+Then ctrl + o and then return to save
+Then ctrl + x to exit nano
+
+
+
+
+* WEBCAM - USE EXTERNAL - call it camswitch
+
+#!/bin/bash
+# Make default camera /dev/video0 point to the "best" camera present.
+if [ -h /dev/video0 ]; then
+sudo rm /dev/video0   # not first run: remove our old symlink
+elif [ -e /dev/video0 ]; then
+sudo mv /dev/video0 /dev/video0.original   # first run: rename original video0
+fi
+if [ -e /dev/video1 ]; then
+sudo ln -s /dev/video1 /dev/video0   # symlink to video1 since it exists
+echo "Set default camera /dev/video0 --> external camera /dev/video1"
+elif [ -e /dev/video0.original ]; then  # symlink to video0.original otherwise
+sudo ln -s /dev/video0.original /dev/video0
+echo "Set default camera /dev/video0 --> integrated camera /dev/video0.original"
+else
+echo "Sorry, does this machine have no camera devices?"
+ls -l /dev/video*
+fi
+
+
+
+* CLEARING CACHE - call it cacheclean
+
+#!/bin/bash
+sudo du -sh /var/cache/apt
+sudo apt-get clean
+sudo du -sh /var/cache/apt
+
+
