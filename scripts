@@ -20,6 +20,18 @@ When all saved, make executable with:
 sudo chmod +x /bin/scriptname
 
 
+* SEARCH FILES IN SPECIFIED DIRECTORY
+
+(Called this accsearch on main home computer in May 2021)
+
+(May want to adjust the flags set on grep)
+
+#!/bin/bash
+cd ~/repo/accounts-reality
+echo Enter search string with a backslash before any space but not double quotes
+read varname
+grep -inr -C 2 "$varname" ./*
+
 
 
 
