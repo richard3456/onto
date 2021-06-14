@@ -30,7 +30,9 @@ sudo chmod +x /bin/scriptname
 cd ~/repo/accounts-reality
 echo Enter search string with a backslash before any space but not double quotes
 read varname
-grep -inr -C 2 "$varname" ./*
+grep -inr "$varname" ./*.tex
+grep -inr "$varname" ./*.txt
+# grep -inr -C 2 "$varname" ./*
 
 
 
