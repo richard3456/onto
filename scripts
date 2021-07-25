@@ -19,7 +19,6 @@ Then put in all the commands. Comment out lines with an initial #
 When all saved, make executable with:
 sudo chmod +x /bin/scriptname
 
-
 * SEARCH FILES IN SPECIFIED DIRECTORY
 
 (Called this accsearch on main home computer in May 2021)
