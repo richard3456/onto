@@ -239,5 +239,7 @@ fi
 sudo du -sh /var/cache/apt
 sudo apt-get clean
 sudo du -sh /var/cache/apt
+sudo journalctl --vacuum-time=3d
+rm -rf ~/.cache/thumbnails/*
 
 
