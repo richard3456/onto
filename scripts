@@ -43,6 +43,8 @@ grep -inr "$varname" ./*.txt
 #!/bin/bash
 cd ~/repo
 git pull git@gitlab.com:fullname/repo.git
+cd ~/open
+git pull [git@gitlab.com](mailto:git@gitlab.com):fullname/open.git
 
 
 ** GIT - QUICK
@@ -53,6 +55,10 @@ cd ~/repo
 git add -A
 git commit -m "quick repo home"
 git push git@gitlab.com:fullname/repo.git
+cd ~/open
+git add -A
+git commit -m "open-update"
+git push [git@gitlab.com](mailto:git@gitlab.com):fullname/open.git
 
 [substitute an identifier for the computer for home if not the main home one, eg blue or purple]
 
