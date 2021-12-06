@@ -113,6 +113,7 @@ Note that don't delete off the library files and ignore existing so as to guard 
 
 #!/bin/bash
 rsync -av --delete --exclude=".*" ~/repo /media/richard/"Seagate Expansion Drive"
+rsync -av --delete --exclude=".*" ~/open /media/richard/"Seagate Expansion Drive"
 rsync -av --delete ~/Downloads /media/richard/"Seagate Expansion Drive"
 if mountpoint -q ~/"pCloudDrive"
 then
