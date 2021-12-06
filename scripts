@@ -68,16 +68,6 @@ git push git@gitlab.com:fullname/open.git
 
 ** GENERAL FILE MANAGEMENT - DROPBACK
 
-DO NOT PUT THE DROPBACK VERSION ON PORTABLE COMPUTERS - USE DROPBLUE, DROPPURPLE
-
-#!/bin/bash
-if mountpoint -q ~/"pCloudDrive"
-then
-rsync -av --delete --exclude=".*" ~/repo ~/"pCloudDrive"/safetyholding
-rsync -av --delete ~/Downloads ~/"pCloudDrive"
-else
-echo "pCloud is not mounted"
-fi
 
 DROPBLUE
 
@@ -85,6 +75,7 @@ DROPBLUE
 if mountpoint -q ~/"pCloudDrive"
 then
 rsync -av --delete --exclude=".*" ~/repo ~/"pCloudDrive"/safetyblue
+rsync -av --delete --exclude=".*" ~/open ~/"pCloudDrive"/safetyblue
 rsync -av --delete ~/Downloads ~/"pCloudDrive"/downblue
 else
 echo "pCloud is not mounted"
@@ -96,6 +87,7 @@ DROPPURPLE
 if mountpoint -q ~/"pCloudDrive"
 then
 rsync -av --delete --exclude=".*" ~/repo ~/"pCloudDrive"/safetypurple
+rsync -av --delete --exclude=".*" ~/open ~/"pCloudDrive"/safetypurple
 rsync -av --delete ~/Downloads ~/"pCloudDrive"/downpurple
 else
 echo "pCloud is not mounted"
