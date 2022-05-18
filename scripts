@@ -80,9 +80,9 @@ DROPBLUE
 #!/bin/bash
 if mountpoint -q ~/"pCloudDrive"
 then
-rsync -av --delete --exclude=".*" ~/repo ~/"pCloudDrive"/safetyblue
-rsync -av --delete --exclude=".*" ~/open ~/"pCloudDrive"/safetyblue
-rsync -av --delete --exclude=".*" ~/life ~/"pCloudDrive"/safetyblue
+rsync -av --delete --exclude=".git/*" ~/repo ~/"pCloudDrive"/safetyblue
+rsync -av --delete --exclude=".git/*" ~/open ~/"pCloudDrive"/safetyblue
+rsync -av --delete --exclude=".git/*" ~/life ~/"pCloudDrive"/safetyblue
 rsync -av --delete ~/Downloads ~/"pCloudDrive"/downblue
 else
 echo "pCloud is not mounted"
@@ -93,9 +93,9 @@ DROPPURPLE
 #!/bin/bash
 if mountpoint -q ~/"pCloudDrive"
 then
-rsync -av --delete --exclude=".*" ~/repo ~/"pCloudDrive"/safetypurple
-rsync -av --delete --exclude=".*" ~/open ~/"pCloudDrive"/safetypurple
-rsync -av --delete --exclude=".*" ~/life ~/"pCloudDrive"/safetypurple
+rsync -av --delete --exclude=".get/*" ~/repo ~/"pCloudDrive"/safetypurple
+rsync -av --delete --exclude=".git/*" ~/open ~/"pCloudDrive"/safetypurple
+rsync -av --delete --exclude=".git/*" ~/life ~/"pCloudDrive"/safetypurple
 rsync -av --delete ~/Downloads ~/"pCloudDrive"/downpurple
 else
 echo "pCloud is not mounted"
