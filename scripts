@@ -38,7 +38,7 @@ grep -inr "$varname" ./*.txt
 
 * GIT
 
-** GIT - GITSTART
+** GIT - GITSTART (directory names are old ones - may not want to use when syncing through pCloud)
 
 #!/bin/bash
 cd ~/repo
@@ -53,23 +53,13 @@ git pull git@gitlab.com:fullname/life.git
 
 #!/bin/bash
 # DO NOT ADD DROPBACK - NEED TO KEEP SEPARATE AND NOT FOR USE ON PORTABLE COMPUTERS
-cd ~/repo
-git add -A
-git commit -m "quick repo home"
-git push git@gitlab.com:fullname/repo.git
-cd ~/open
+# SUBSTITUTE ACTUAL NAME FOR fullname
+cd ~/locals/open
 git add -A
 git commit -m "open-update"
 git push git@gitlab.com:fullname/open.git
-cd ~/life
-git add -A
-git commit -m "life-update"
-git push git@gitlab.com:fullname/life.git
 
 [substitute an identifier for the computer for home if not the main home one, eg blue or purple]
-
-
-
 
 
 ** GENERAL FILE MANAGEMENT - DROPBACK
@@ -80,9 +70,6 @@ DROPBLUE
 #!/bin/bash
 if mountpoint -q ~/"pCloudDrive"
 then
-rsync -av --delete --exclude=".git/*" ~/repo ~/"pCloudDrive"/safetyblue
-rsync -av --delete --exclude=".git/*" ~/open ~/"pCloudDrive"/safetyblue
-rsync -av --delete --exclude=".git/*" ~/life ~/"pCloudDrive"/safetyblue
 rsync -av --delete ~/Downloads ~/"pCloudDrive"/downblue
 else
 echo "pCloud is not mounted"
@@ -93,9 +80,6 @@ DROPPURPLE
 #!/bin/bash
 if mountpoint -q ~/"pCloudDrive"
 then
-rsync -av --delete --exclude=".get/*" ~/repo ~/"pCloudDrive"/safetypurple
-rsync -av --delete --exclude=".git/*" ~/open ~/"pCloudDrive"/safetypurple
-rsync -av --delete --exclude=".git/*" ~/life ~/"pCloudDrive"/safetypurple
 rsync -av --delete ~/Downloads ~/"pCloudDrive"/downpurple
 else
 echo "pCloud is not mounted"
@@ -120,14 +104,9 @@ Note that whether you have slashes before or after paths is crucial.
 Note that don't delete off the library files and ignore existing so as to guard against loss through corruption.
 
 #!/bin/bash
-rsync -av --delete --exclude=".*" ~/repo /media/richard/"Seagate Expansion Drive"
-rsync -av --delete --exclude=".*" ~/open /media/richard/"Seagate Expansion Drive"
-rsync -av --delete --exclude=".*" ~/life /media/richard/"Seagate Expansion Drive"
-rsync -av --delete ~/Downloads /media/richard/"Seagate Expansion Drive"
 if mountpoint -q ~/"pCloudDrive"
 then
 rsync -av --ignore-existing --exclude="zztakeout" ~/"pCloudDrive"/01alib /media/richard/"Seagate Expansion Drive"
-rsync -av --delete ~/"pCloudDrive"/admin /media/richard/"Seagate Expansion Drive"
 else
 echo "pCloudDrive not mounted"
 fi
